@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Taquin</title>
+    <meta charset="UTF-8">
+    <link href="./css/style.css" rel="stylesheet" />
+    <link href="./css/image-puzzle.css" rel="stylesheet" />
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+    <script src="./js/image-puzzle.js"></script>
+</head>
+<body>
+    <header></header>
+    <div id="collage">
+        <h2>Le taquin</h2>
+        
+        <div id="playPanel" style="padding:5px;display:none;">
+            <h3 id="imgTitle"></h3>
+            <div style="display:inline-block; margin:auto; width:95%; vertical-align:top;">
+                <ul id="sortable" class="sortable"></ul>
+                <div id="actualImageBox">
+                    <div id="stepBox">
+                        <div>Mouvements:</div><div class="stepCount">0</div>
+                    </div>
+                    <div id="timeBox">
+                        Chrono: <span id="timerPanel"></span> secondes
+                    </div>
+                    <img id="actualImage"/>
+                    <p id="levelPanel">
+                        <input type="radio" name="level" id="easy" checked="checked" value="3" /> <label for="easy">Facile</label>
+                        <input type="radio" name="level" id="medium" value="4" /> <label for="medium">Normal</label>
+                        <input type="radio" name="level" id="hard" value="5" /> <label for="hard">Difficile</label>
+						<input type="radio" name="level" id="veryhard" value="6" /> <label for="veryhard">Très difficile</label>
+                    </p>
+                    <div>
+                        <button id="btnRule" type="button" class="btn" onclick="rules();">Règles</button>
+                        <button id="newPhoto" type="button" class="btn">Changer d'image</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gameOver" style="display:none;">
+            <div style="background-color: #fc9e9e; padding: 5px 10px 20px 10px; text-align: center; ">
+                <h2 style="text-align:center">Félicitations</h2>
+                Tu as réussi <br/> 
+                <br/>
+                Mouvement: <span class="stepCount">0</span> Mouvements.
+                <br/>
+                Temps écoulé: <span class="timeCount">0</span> secondes<br/>
+                <div>
+                    <button id="newGame" type="button" onclick="window.location.reload(true);">Rejouer</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var images = [
+                { src: './img/starswars1.jpg', title: 'Space' },
+                { src: './img/starswars2.jpg', title: 'Death star' },
+                { src: './img/yinyang.jpg', title: 'Yin et Yang' },
+                { src: './img/starswars4.jpg', title: 'Space battle' },
+                { src: './img/nyancat.jpg', title: 'Nyan cat' },
+                { src: './img/starswars6.jpg', title: 'Qui Gon Jinn'}
+            ];
+
+            $(function () {
+                var gridSize = $('#levelPanel :radio:checked').val();
+                imagePuzzle.startGame(images, gridSize);
+                $('#newPhoto').click(function () {
+                    var gridSize = $('#levelPanel :radio:checked').val();
+                    imagePuzzle.startGame(images, gridSize);
+                });
+
+                $('#levelPanel :radio').change(function (e) {
+                    var gridSize = $(this).val();
+                    imagePuzzle.startGame(images, gridSize);
+                });
+            });
+            function rules() {
+                alert('Réorganisez les pièces afin d obtenir un exemple d image. \nLes pas effectués sont comptés');
+            }
+        </script>
+    </div>
+    <footer>
+      
+    </footer>
+</body>
+</html>
